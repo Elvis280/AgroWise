@@ -21,21 +21,41 @@
   --agrion-font: 'DM Sans', sans-serif;
   --agrion-font-two: 'Amatic SC', cursive;
   --agrion-reey-font: "reeyregular";
-  --agrion-gray: #757873;
-  --agrion-gray-rgb: 117, 120, 115;
-  --agrion-white: #ffffff;
-  --agrion-white-rgb: 255, 255, 255;
-  --agrion-base: #1f6306;
-  --agrion-base-rgb: 31, 99, 6;
-  --agrion-black: #0e2207;
-  --agrion-black-rgb: 14, 34, 7;
-  --agrion-primary: #ffcd1e;
-  --agrion-primary-rgb: 255, 205, 30;
-  --agrion-extra: #f8f6f1;
-  --agrion-extra-rgb: 248, 246, 241;
-  --agrion-bdr-radius: 10px;
 
+  /* Neutral Base Colors */
+  --agrion-black: #1c1c1c;                  /* Deep rich black */
+  --agrion-black-rgb: 13, 13, 13;
+
+  --agrion-white: #ffffff;                  /* Pure white */
+  --agrion-white-rgb: 255, 255, 255;
+
+  --agrion-gray: #2b2b2b;                   /* Dark gray for contrast panels */
+  --agrion-gray-rgb: 43, 43, 43;
+
+  --agrion-extra: #f4f4f4;                  /* Light gray background */
+  --agrion-extra-rgb: 244, 244, 244;
+
+  /* Green Brand Highlight */
+  --agrion-base: #1f8a3e;                 /* Natural professional green */
+  --agrion-base-rgb: 31, 138, 62;
+
+  --agrion-primary: #80a9f4;
+  --agrion-primary-rgb: 255, 205, 30;
+
+  --agrion-bdr-radius: 10px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 .row {
   --bs-gutter-x: 30px;
