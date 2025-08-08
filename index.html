@@ -942,45 +942,53 @@
                         </div>
                     </div>
                     <div class="col-xl-6">
-                        <div class="healthy-food-one__right">
-                            <div class="section-title text-left">
-                                <span class="section-title__tagline">Pure Organic Food</span>
-                                <h2 class="section-title__title">Healthy food for your good
-                                    growth</h2>
-                                <div class="section-title__icon">
-                                    <img src="./Home One __ Agrion __ Agrion HTML 5 Template_files/section-title-icon-1.png" alt="">
-                                </div>
-                            </div>
-                            <p class="healthy-food-one__text">Lorem ipsum dolor sit amet nsectetur cing elit. Suspe
-                                ndisse suscipit sagittis leo sit met entum estibu dignissim posuere cubilia durae. Leo
-                                sit met entum cubilia crae onec.</p>
-                            <ul class="list-unstyled healthy-food-one__list">
-                                <li class="healthy-food-one__single">
-                                    <div class="healthy-food-one__content">
-                                        <div class="healthy-food-one__icon">
-                                            <span class="icon-harvester"></span>
-                                        </div>
-                                        <p class="healthy-food-one__title">Harvesting</p>
-                                    </div>
-                                </li>
-                                <li class="healthy-food-one__single">
-                                    <div class="healthy-food-one__content">
-                                        <div class="healthy-food-one__icon">
-                                            <span class="icon-agriculture-1"></span>
-                                        </div>
-                                        <p class="healthy-food-one__title">Growth</p>
-                                    </div>
-                                </li>
-                                <li class="healthy-food-one__single">
-                                    <div class="healthy-food-one__content">
-                                        <div class="healthy-food-one__icon">
-                                            <span class="icon-harvest-1"></span>
-                                        </div>
-                                        <p class="healthy-food-one__title">Maintenance</p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                      <div class="chat-container">
+        <div class="chat-header">
+            <div class="bot-avatar"> <img src="hello_files/robo logo.png" alt=""></div>
+            <div class="bot-info">
+                <h3>AGRO-BOT</h3>
+                <div class="bot-status">
+                    <span class="status-dot"></span>
+                    Online - Ready to help!
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">
+                <div class="message-content">
+                    <div>Hello! 👋 I'm your AI assistant. How can I help you today?</div>
+                    <div class="message-time">Just now</div>
+                </div>
+            </div>
+            
+            <div class="quick-replies">
+                <button class="quick-reply-btn" onclick="sendQuickReply('What can you do?')">What can you do?</button>
+                <button class="quick-reply-btn" onclick="sendQuickReply('Tell me a joke')">Tell me a joke</button>
+                <button class="quick-reply-btn" onclick="sendQuickReply('Help me with...')">Help me with...</button>
+            </div>
+        </div>
+
+        <div class="chat-input">
+            <div class="input-container">
+                <div class="input-actions">
+                    <button class="action-btn" onclick="handleFileUpload()" title="Upload file">
+                        📎
+                    </button>
+                    <button class="action-btn" onclick="handleImageUpload()" title="Upload image">
+                        🖼️
+                    </button>
+                    <button class="action-btn" onclick="handleVoiceInput()" title="Voice input">
+                        🎤
+                    </button>
+                </div>
+                <input type="text" id="messageInput" placeholder="Type your message…" onkeypress="handleKeyPress(event)">
+                <button class="send-btn" onclick="sendMessage()" id="sendBtn">
+                    ✈️
+                </button>
+            </div>
+        </div>
+    </div>
                     </div>
                 </div>
             </div>
@@ -1328,7 +1336,9 @@
                             <ul class="list-unstyled counter-one__list">
                                 <li class="counter-one__single wow fadeInLeft animated" data-wow-delay="100ms" style="visibility: visible; animation-delay: 100ms; animation-name: fadeInLeft;">
                                     <div class="counter-one__icon">
-                                        <span class="icon-seeds"></span>
+                                        <span class="">
+                                            <img src="hello_files/farmer-removebg-preview.png" alt="">
+                                        </span>
                                         <div class="counter-one__shape-one">
                                             <img src="./Home One __ Agrion __ Agrion HTML 5 Template_files/counter-one-shape-1.png" alt="">
                                         </div>
@@ -1338,12 +1348,14 @@
                                     </div>
                                     <div class="counter-one__content-box count-box">
                                         <h3 class="count-text" data-stop="6420" data-speed="1500">00</h3>
-                                        <p class="counter-one__text">Agriculture Products</p>
+                                        <p class="counter-one__text">Farmers Connected</p>
                                     </div>
                                 </li>
                                 <li class="counter-one__single wow fadeInLeft animated" data-wow-delay="200ms" style="visibility: visible; animation-delay: 200ms; animation-name: fadeInLeft;">
                                     <div class="counter-one__icon">
-                                        <span class="icon-cotton"></span>
+                                        <span class="">
+                                            <img src="hello_files/diseas.png" alt="">
+                                        </span>
                                         <div class="counter-one__shape-one">
                                             <img src="./Home One __ Agrion __ Agrion HTML 5 Template_files/counter-one-shape-1.png" alt="">
                                         </div>
@@ -1353,12 +1365,14 @@
                                     </div>
                                     <div class="counter-one__content-box count-box">
                                         <h3 class="count-text" data-stop="8800" data-speed="1500">00</h3>
-                                        <p class="counter-one__text">Projects completed</p>
+                                        <p class="counter-one__text">Disease Detected</p>
                                     </div>
                                 </li>
                                 <li class="counter-one__single wow fadeInLeft animated" data-wow-delay="300ms" style="visibility: visible; animation-delay: 300ms; animation-name: fadeInLeft;">
                                     <div class="counter-one__icon">
-                                        <span class="icon-customer"></span>
+                                        <span class="">
+                                            <img src="hello_files/wheat-removebg-preview.png" alt="">
+                                        </span>
                                         <div class="counter-one__shape-one">
                                             <img src="./Home One __ Agrion __ Agrion HTML 5 Template_files/counter-one-shape-1.png" alt="">
                                         </div>
@@ -1368,12 +1382,14 @@
                                     </div>
                                     <div class="counter-one__content-box count-box">
                                         <h3 class="count-text" data-stop="9360" data-speed="1500">00</h3>
-                                        <p class="counter-one__text">satisfied customers</p>
+                                        <p class="counter-one__text">Crop Suggestions</p>
                                     </div>
                                 </li>
                                 <li class="counter-one__single wow fadeInLeft animated" data-wow-delay="400ms" style="visibility: visible; animation-delay: 400ms; animation-name: fadeInLeft;">
                                     <div class="counter-one__icon">
-                                        <span class="icon-farmer"></span>
+                                        <span class="">
+                                            <img src="hello_files/Screenshot__1920_-removebg-preview.png" alt="">
+                                        </span>
                                         <div class="counter-one__shape-one">
                                             <img src="./Home One __ Agrion __ Agrion HTML 5 Template_files/counter-one-shape-1.png" alt="">
                                         </div>
@@ -1383,7 +1399,7 @@
                                     </div>
                                     <div class="counter-one__content-box count-box">
                                         <h3 class="count-text" data-stop="1070" data-speed="1500">00</h3>
-                                        <p class="counter-one__text">Expert farmers</p>
+                                        <p class="counter-one__text">Weather <br>Alerts</p>
                                     </div>
                                 </li>
                             </ul>
@@ -1399,15 +1415,15 @@
             <div class="container">
                 <div class="call-one__inner wow fadeInUp" data-wow-delay="100ms" style="visibility: hidden; animation-delay: 100ms; animation-name: none;">
                     <div class="call-one__left">
-                        <h3 class="call-one__content">Healthy products</h3>
+                        <h3 class="call-one__content">AI-POWERED FARMING</h3>
                         <div class="call-one__icon">
-                            <span class="icon-phone-ringing"></span>
+                            <span class=""><i class="ri-customer-service-fill"></i></span>
                         </div>
                     </div>
                     <div class="call-one__right">
                         <div class="call-one__contact-info">
-                            <p>Lorem ipsum dolor sit am cons sid</p>
-                            <a href="tel:12463330088">+ 1- (246) 333-0088</a>
+                            <p>AI-based crop tips for better yield.</p>
+                            <a href="">+91 9452****07</a>
                         </div>
                     </div>
                 </div>
@@ -1421,27 +1437,26 @@
             </div>
             <div class="container">
                 <div class="section-title text-center">
-                    <span class="section-title__tagline">Our Latest Projects</span>
-                    <h2 class="section-title__title">Recently completed Projects</h2>
+                    <span class="section-title__tagline">Farmer Support Programs</span>
+                    <h2 class="section-title__title">Government Schemes & Subsidy</h2>
                     <div class="section-title__icon">
                         <img src="./Home One __ Agrion __ Agrion HTML 5 Template_files/section-title-icon-1.png" alt="">
                     </div>
                 </div>
                 <div class="row">
                     <!--Project One Single Start-->
-                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms" style="visibility: hidden; animation-delay: 100ms; animation-name: none;">
+                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms" style="height: 3vw;visibility: hidden; animation-delay: 100ms; animation-name: none;">
                         <div class="project-one__single">
                             <div class="project-one__inner">
                                 <div class="project-one__img">
-                                    <img src="./Home One __ Agrion __ Agrion HTML 5 Template_files/project-one-1.jpg" alt="">
+                                    <img src="hello_files/PM Kisan Yojna.png" alt="">
                                 </div>
                                 <div class="project-one__arrow">
                                     <a href="https://pixydrops.com/agrionhtml/main-html/project-details.html"><i class="icon-right-arrow"></i></a>
                                 </div>
                                 <div class="project-one__content">
-                                    <span class="project-one__tagline">healthy</span>
-                                    <h3 class="project-one__title"><a href="https://pixydrops.com/agrionhtml/main-html/project-details.html">organic
-                                            <br> solutions</a></h3>
+                                    <span class="project-one__tagline">Income Support</span>
+                                    <h3 class="project-one__title"><a href="https://pixydrops.com/agrionhtml/main-html/project-details.html">PM-KISAN Schemes</a></h3>
                                 </div>
                             </div>
                         </div>
@@ -1452,15 +1467,14 @@
                         <div class="project-one__single">
                             <div class="project-one__inner">
                                 <div class="project-one__img">
-                                    <img src="./Home One __ Agrion __ Agrion HTML 5 Template_files/project-one-2.jpg" alt="">
+                                    <img src="hello_files/fasal bima.png" alt="">
                                 </div>
                                 <div class="project-one__arrow">
                                     <a href="https://pixydrops.com/agrionhtml/main-html/project-details.html"><i class="icon-right-arrow"></i></a>
                                 </div>
                                 <div class="project-one__content">
-                                    <span class="project-one__tagline">farming</span>
-                                    <h3 class="project-one__title"><a href="https://pixydrops.com/agrionhtml/main-html/project-details.html">Harvest
-                                            <br> Innovations</a></h3>
+                                    <span class="project-one__tagline">Crop insurance</span>
+                                    <h3 class="project-one__title"><a href="https://pixydrops.com/agrionhtml/main-html/project-details.html"> Fasal Bima Yojana</a></h3>
                                 </div>
                             </div>
                         </div>
@@ -1471,15 +1485,14 @@
                         <div class="project-one__single">
                             <div class="project-one__inner">
                                 <div class="project-one__img">
-                                    <img src="./Home One __ Agrion __ Agrion HTML 5 Template_files/project-one-3.jpg" alt="">
+                                    <img src="hello_files/card.png" alt="">
                                 </div>
                                 <div class="project-one__arrow">
                                     <a href="https://pixydrops.com/agrionhtml/main-html/project-details.html"><i class="icon-right-arrow"></i></a>
                                 </div>
                                 <div class="project-one__content">
-                                    <span class="project-one__tagline">organic</span>
-                                    <h3 class="project-one__title"><a href="https://pixydrops.com/agrionhtml/main-html/project-details.html">Agriculture
-                                            <br> farming</a></h3>
+                                    <span class="project-one__tagline">Know your soil</span>
+                                    <h3 class="project-one__title"><a href="https://pixydrops.com/agrionhtml/main-html/project-details.html">Soil Health Card</a></h3>
                                 </div>
                             </div>
                         </div>
@@ -1490,15 +1503,14 @@
                         <div class="project-one__single">
                             <div class="project-one__inner">
                                 <div class="project-one__img">
-                                    <img src="./Home One __ Agrion __ Agrion HTML 5 Template_files/project-one-4.jpg" alt="">
+                                    <img src="hello_files/KCC.png" alt="">
                                 </div>
                                 <div class="project-one__arrow">
                                     <a href="https://pixydrops.com/agrionhtml/main-html/project-details.html"><i class="icon-right-arrow"></i></a>
                                 </div>
                                 <div class="project-one__content">
-                                    <span class="project-one__tagline">solution</span>
-                                    <h3 class="project-one__title"><a href="https://pixydrops.com/agrionhtml/main-html/project-details.html">the Farming
-                                            <br> season</a></h3>
+                                    <span class="project-one__tagline">Easy loans</span>
+                                    <h3 class="project-one__title"><a href="https://pixydrops.com/agrionhtml/main-html/project-details.html">Kisan Credit Card</a></h3>
                                 </div>
                             </div>
                         </div>
@@ -2059,6 +2071,201 @@
         <!-- /.search-popup__content -->
     </div>
     <!-- /.search-popup -->
+
+     <script>
+        let messageCount = 0;
+        let isTyping = false;
+
+        const botResponses = [
+            "That's a great question! I'm here to help with various tasks like answering questions, providing information, helping with writing, and much more.",
+            "Why don't scientists trust atoms? Because they make up everything! 😄",
+            "I'd be happy to help! What specific topic or task would you like assistance with?",
+            "Thanks for your message! I'm processing that information and will get back to you shortly.",
+            "Interesting! Let me think about that for a moment...",
+            "I understand what you're looking for. Here's what I can suggest based on your request.",
+            "That's a thoughtful question. Let me provide you with some helpful information about that topic."
+        ];
+
+        function getCurrentTime() {
+            const now = new Date();
+            return now.toLocaleTimeString('en-US', { 
+                hour: 'numeric', 
+                minute: '2-digit',
+                hour12: true 
+            });
+        }
+
+        function addMessage(content, isUser = false, showTime = true) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.innerHTML = `
+                <div>${content}</div>
+                ${showTime ? `<div class="message-time">${getCurrentTime()}</div>` : ''}
+            `;
+            
+            messageDiv.appendChild(messageContent);
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            if (isTyping) return;
+            
+            isTyping = true;
+            const messagesContainer = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot';
+            typingDiv.id = 'typingIndicator';
+            
+            typingDiv.innerHTML = `
+                <div class="typing-indicator">
+                    <div class="typing-dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <span>AI is typing...</span>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+                isTyping = false;
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                addMessage(message, true);
+                input.value = '';
+                
+                // Show typing indicator
+                showTypingIndicator();
+                
+                // Simulate bot response delay
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    const response = botResponses[Math.floor(Math.random() * botResponses.length)];
+                    addMessage(response);
+                    
+                    // Occasionally show quick replies
+                    if (Math.random() > 0.6) {
+                        setTimeout(() => {
+                            showQuickReplies();
+                        }, 500);
+                    }
+                }, 1000 + Math.random() * 2000);
+            }
+        }
+
+        function sendQuickReply(text) {
+            addMessage(text, true);
+            hideQuickReplies();
+            
+            showTypingIndicator();
+            setTimeout(() => {
+                hideTypingIndicator();
+                let response;
+                
+                if (text.includes('What can you do')) {
+                    response = "I can help with a wide variety of tasks! I can answer questions, help with writing, provide explanations, assist with problem-solving, offer creative ideas, and much more. What would you like to explore?";
+                } else if (text.includes('joke')) {
+                    response = "Here's one for you: Why don't programmers like nature? It has too many bugs! 🐛😄";
+                } else if (text.includes('Help me')) {
+                    response = "I'd love to help! Could you tell me more specifically what you'd like assistance with? I'm here for questions, creative projects, learning, problem-solving, and more!";
+                }
+                
+                addMessage(response);
+            }, 1500);
+        }
+
+        function showQuickReplies() {
+            const messagesContainer = document.getElementById('chatMessages');
+            const quickRepliesDiv = document.createElement('div');
+            quickRepliesDiv.className = 'quick-replies';
+            quickRepliesDiv.id = 'dynamicQuickReplies';
+            
+            const replies = [
+                'Tell me more',
+                'That\'s helpful!',
+                'What else?',
+                'Thanks!'
+            ];
+            
+            replies.forEach(reply => {
+                const btn = document.createElement('button');
+                btn.className = 'quick-reply-btn';
+                btn.textContent = reply;
+                btn.onclick = () => sendQuickReply(reply);
+                quickRepliesDiv.appendChild(btn);
+            });
+            
+            messagesContainer.appendChild(quickRepliesDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideQuickReplies() {
+            const dynamicReplies = document.getElementById('dynamicQuickReplies');
+            if (dynamicReplies) {
+                dynamicReplies.remove();
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function handleFileUpload() {
+            addMessage("📎 File upload feature would be implemented here!", true);
+            showTypingIndicator();
+            setTimeout(() => {
+                hideTypingIndicator();
+                addMessage("I'd be happy to help with file uploads! This feature would allow you to share documents, spreadsheets, and other files for analysis or assistance.");
+            }, 1500);
+        }
+
+        function handleImageUpload() {
+            addMessage("🖼️ Image upload requested!", true);
+            showTypingIndicator();
+            setTimeout(() => {
+                hideTypingIndicator();
+                addMessage("Great! Image upload functionality would let you share pictures for analysis, description, or any visual assistance you might need.");
+            }, 1500);
+        }
+
+        function handleVoiceInput() {
+            addMessage("🎤 Voice input activated!", true);
+            showTypingIndicator();
+            setTimeout(() => {
+                hideTypingIndicator();
+                addMessage("Voice input is a fantastic feature! It would allow you to speak your messages instead of typing them. Very convenient for hands-free interaction!");
+            }, 1500);
+        }
+
+        // Enable send button only when there's text
+        document.getElementById('messageInput').addEventListener('input', function() {
+            const sendBtn = document.getElementById('sendBtn');
+            sendBtn.disabled = this.value.trim() === '';
+        });
+
+        // Initialize
+        document.getElementById('sendBtn').disabled = true;
+    </script>
 
 <script>
     // Mouse-based 3D tilt effect
