@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishi Mitra - Your Agriculture Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .chatbot-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            height: 700px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .language-selector {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .chat-area {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: linear-gradient(45deg, #f8f9ff 0%, #e8f5e8 100%);
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 15px 20px;
+            border-radius: 20px;
+            position: relative;
+            word-wrap: break-word;
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message.bot .message-content {
+            background: white;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .user-avatar {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .bot-avatar {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+        }
+
+        .input-area {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .message-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 1rem;
+            resize: none;
+            max-height: 100px;
+            outline: none;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .message-input:focus {
+            border-color: #4CAF50;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .file-input {
+            position: absolute;
+            right: 45px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+
+        .file-label {
+            position: absolute;
+            right: 45px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .file-label:hover {
+            color: #4CAF50;
+        }
+
+        .voice-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #666;
+            transition: all 0.3s ease;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .voice-btn:hover {
+            color: #4CAF50;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .voice-btn.listening {
+            color: #f44336;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-50%) scale(1.1); }
+            100% { transform: translateY(-50%) scale(1); }
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 15px 20px;
+            background: white;
+            border-radius: 20px;
+            border-bottom-left-radius: 5px;
+            max-width: 70%;
+            border: 1px solid #e0e0e0;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #4CAF50;
+            border-radius: 50%;
+            animation: typing 1.5s infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+
+        .file-preview {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0f8ff;
+            border-radius: 10px;
+            border-left: 4px solid #4CAF50;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .quick-suggestions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .suggestion-btn {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid #4CAF50;
+            color: #4CAF50;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .suggestion-btn:hover {
+            background: #4CAF50;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .welcome-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+        .welcome-message h3 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .chatbot-container {
+                height: 100vh;
+                max-height: 100vh;
+                border-radius: 0;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .message-content {
+                max-width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chatbot-container">
+        <div class="header">
+            <select class="language-selector" id="languageSelector">
+                <option value="en">English</option>
+                <option value="hi">हिंदी</option>
+                <option value="bn">বাংলা</option>
+                <option value="te">తెలుగు</option>
+                <option value="ta">தமிழ்</option>
+                <option value="gu">ગુજરાતી</option>
+                <option value="mr">मराठी</option>
+                <option value="pa">ਪੰਜਾਬੀ</option>
+            </select>
+            <h1>🌾 Krishi Mitra</h1>
+            <p class="subtitle">Your Intelligent Agriculture Assistant</p>
+        </div>
+
+        <div class="chat-area" id="chatArea">
+            <div class="welcome-message" id="welcomeMessage">
+                <h3>Welcome to Krishi Mitra! 🌱</h3>
+                <p>I'm here to help you with all your farming questions. You can:</p>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <span class="feature-icon">💬</span>
+                        <strong>Ask Questions</strong>
+                        <p>Type or speak your queries</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🎤</span>
+                        <strong>Voice Input</strong>
+                        <p>Use voice commands</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">📁</span>
+                        <strong>Upload Files</strong>
+                        <p>Share images & documents</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🌍</span>
+                        <strong>Multi-language</strong>
+                        <p>Support in 8 languages</p>
+                    </div>
+                </div>
+                
+                <div class="quick-suggestions">
+                    <button class="suggestion-btn" onclick="sendSuggestion('What crops should I grow this season?')">Crop Selection</button>
+                    <button class="suggestion-btn" onclick="sendSuggestion('How to control pests in my farm?')">Pest Control</button>
+                    <button class="suggestion-btn" onclick="sendSuggestion('Tell me about soil testing')">Soil Health</button>
+                    <button class="suggestion-btn" onclick="sendSuggestion('What government schemes are available?')">Schemes</button>
+                    <button class="suggestion-btn" onclick="sendSuggestion('Best irrigation methods')">Irrigation</button>
+                </div>
+            </div>
+
+            <div class="message bot" style="display: none;">
+                <div class="avatar bot-avatar">🌾</div>
+                <div class="typing-indicator" id="typingIndicator">
+                    <div class="typing-dots">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <div class="file-preview" id="filePreview"></div>
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <textarea 
+                        class="message-input" 
+                        id="messageInput" 
+                        placeholder="Ask me anything about farming... (Press Enter to send, Shift+Enter for new line)"
+                        rows="1"
+                    ></textarea>
+                    <input type="file" class="file-input" id="fileInput" accept="image/*,.pdf,.doc,.docx,.txt">
+                    <label for="fileInput" class="file-label" title="Upload file">📎</label>
+                    <button class="voice-btn" id="voiceBtn" title="Voice input">🎤</button>
+                </div>
+                <button class="send-btn" id="sendBtn" title="Send message">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class KrishiMitra {
+            constructor() {
+                this.chatArea = document.getElementById('chatArea');
+                this.messageInput = document.getElementById('messageInput');
+                this.sendBtn = document.getElementById('sendBtn');
+                this.voiceBtn = document.getElementById('voiceBtn');
+                this.fileInput = document.getElementById('fileInput');
+                this.filePreview = document.getElementById('filePreview');
+                this.languageSelector = document.getElementById('languageSelector');
+                this.welcomeMessage = document.getElementById('welcomeMessage');
+                this.typingIndicator = document.getElementById('typingIndicator');
+                
+                this.isListening = false;
+                this.recognition = null;
+                this.currentLanguage = 'en';
+                this.uploadedFile = null;
+                
+                this.initializeEventListeners();
+                this.initializeSpeechRecognition();
+                this.setupLanguageChange();
+                
+                this.responses = {
+                    en: {
+                        greeting: "Hello! I'm Krishi Mitra, your agriculture assistant. How can I help you today?",
+                        cropSelection: "For crop selection, I need to know your location, soil type, and season. Generally, consider factors like climate, water availability, market demand, and your farming experience. What specific region are you farming in?",
+                        pestControl: "Pest control depends on the type of pest and crop. I recommend Integrated Pest Management (IPM) which includes: 1) Regular monitoring, 2) Biological control methods, 3) Organic pesticides when needed, 4) Proper crop rotation. Can you tell me what pest issues you're facing?",
+                        soilHealth: "Soil testing is crucial for healthy crops. Test for pH level, nutrient content (N-P-K), organic matter, and micronutrients. I recommend testing every 2-3 years. You can contact your local agriculture extension office or use soil testing kits. What's your current soil condition?",
+                        irrigation: "Modern irrigation methods include: 1) Drip irrigation - most water efficient, 2) Sprinkler systems, 3) Micro-sprinklers for orchards, 4) Smart irrigation with sensors. The best method depends on your crop, water source, and budget. What crops are you growing?",
+                        schemes: "There are several government schemes available: PM-KISAN, Pradhan Mantri Fasal Bima Yojana, Kisan Credit Card, Soil Health Card scheme, and many state-specific programs. Which area are you interested in?",
+                        weather: "Weather monitoring is essential for farming decisions. I recommend checking daily weather forecasts, seasonal predictions, and using weather-based advisory services. Many apps provide localized agricultural weather information.",
+                        organic: "Organic farming uses natural methods: compost, green manure, crop rotation, biological pest control, and avoiding synthetic chemicals. It takes 3 years for soil conversion and certification. Are you planning to start organic farming?",
+                        marketing: "For better marketing: 1) Know your local market prices, 2) Consider direct sales to consumers, 3) Join farmer producer organizations, 4) Use online platforms, 5) Value addition through processing. What crops do you want to market?",
+                        error: "I apologize, but I didn't understand your question. Could you please rephrase it or ask about crops, pests, soil, irrigation, government schemes, or any other farming topic?",
+                        fileUploaded: "I can see you've uploaded a file. Please tell me what specific information you need about it, such as disease identification, soil analysis, or crop assessment.",
+                        voiceError: "Sorry, I couldn't understand your voice input. Please try speaking clearly or type your question."
+                    },
+                    hi: {
+                        greeting: "नमस्ते! मैं कृषि मित्र हूं, आपका कृषि सहायक। आज मैं आपकी कैसे मदद कर सकता हूं?",
+                        cropSelection: "फसल चयन के लिए, मुझे आपका स्थान, मिट्टी का प्रकार और मौसम जानना होगा। आम तौर पर जलवायु, पानी की उपलब्धता, बाजार की मांग और आपके खेती के अनुभव को ध्यान में रखें।",
+                        pestControl: "कीट नियंत्रण कीट के प्रकार और फसल पर निर्भर करता है। मैं एकीकृत कीट प्रबंधन की सिफारिश करता हूं: नियमित निगरानी, जैविक नियंत्रण, आवश्यक होने पर जैविक कीटनाशक।",
+                        soilHealth: "स्वस्थ फसलों के लिए मिट्टी की जांच महत्वपूर्ण है। pH स्तर, पोषक तत्व सामग्री, जैविक पदार्थ की जांच करें। हर 2-3 साल में जांच कराने की सलाह देता हूं।",
+                        irrigation: "आधुनिक सिंचाई विधियों में ड्रिप सिंचाई सबसे पानी कुशल है। स्प्रिंकलर सिस्टम, माइक्रो-स्प्रिंकलर भी अच्छे विकल्प हैं।",
+                        schemes: "कई सरकारी योजनाएं उपलब्ध हैं: पीएम-किसान, फसल बीमा योजना, किसान क्रेडिट कार्ड, मृदा स्वास्थ्य कार्ड योजना।",
+                        error: "क्षमा करें, मैं आपका प्रश्न समझ नहीं पाया। कृपया इसे दोबारा बताएं या फसल, कीट, मिट्टी, सिंचाई के बारे में पूछें।",
+                        fileUploaded: "मैं देख सकता हूं कि आपने एक फाइल अपलोड की है। कृपया बताएं कि आपको इसके बारे में क्या जानकारी चाहिए।",
+                        voiceError: "क्षमा करें, मैं आपकी आवाज़ समझ नहीं पाया। कृपया स्पष्ट रूप से बोलें या अपना प्रश्न टाइप करें।"
+                    }
+                };
+            }
+
+            initializeEventListeners() {
+                this.sendBtn.addEventListener('click', () => this.sendMessage());
+                this.messageInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        this.sendMessage();
+                    }
+                });
+                
+                this.voiceBtn.addEventListener('click', () => this.toggleVoiceRecognition());
+                this.fileInput.addEventListener('change', (e) => this.handleFileUpload(e));
+                
+                // Auto-resize textarea
+                this.messageInput.addEventListener('input', () => {
+                    this.messageInput.style.height = 'auto';
+                    this.messageInput.style.height = Math.min(this.messageInput.scrollHeight, 100) + 'px';
+                });
+            }
+
+            initializeSpeechRecognition() {
+                if ('webkitSpeechRecognition' in window) {
+                    this.recognition = new webkitSpeechRecognition();
+                    this.recognition.continuous = false;
+                    this.recognition.interimResults = false;
+                    this.recognition.lang = 'en-US';
+                    
+                    this.recognition.onresult = (event) => {
+                        const transcript = event.results[0][0].transcript;
+                        this.messageInput.value = transcript;
+                        this.stopVoiceRecognition();
+                    };
+                    
+                    this.recognition.onerror = () => {
+                        this.stopVoiceRecognition();
+                        this.addMessage('bot', this.responses[this.currentLanguage].voiceError);
+                    };
+                    
+                    this.recognition.onend = () => {
+                        this.stopVoiceRecognition();
+                    };
+                } else {
+                    this.voiceBtn.style.display = 'none';
+                }
+            }
+
+            setupLanguageChange() {
+                this.languageSelector.addEventListener('change', (e) => {
+                    this.currentLanguage = e.target.value;
+                    if (this.recognition) {
+                        const langMap = {
+                            'en': 'en-US',
+                            'hi': 'hi-IN',
+                            'bn': 'bn-IN',
+                            'te': 'te-IN',
+                            'ta': 'ta-IN',
+                            'gu': 'gu-IN',
+                            'mr': 'mr-IN',
+                            'pa': 'pa-IN'
+                        };
+                        this.recognition.lang = langMap[this.currentLanguage] || 'en-US';
+                    }
+                });
+            }
+
+            toggleVoiceRecognition() {
+                if (this.isListening) {
+                    this.stopVoiceRecognition();
+                } else {
+                    this.startVoiceRecognition();
+                }
+            }
+
+            startVoiceRecognition() {
+                if (this.recognition) {
+                    this.isListening = true;
+                    this.voiceBtn.classList.add('listening');
+                    this.voiceBtn.innerHTML = '🔴';
+                    this.recognition.start();
+                }
+            }
+
+            stopVoiceRecognition() {
+                if (this.recognition) {
+                    this.isListening = false;
+                    this.voiceBtn.classList.remove('listening');
+                    this.voiceBtn.innerHTML = '🎤';
+                    this.recognition.stop();
+                }
+            }
+
+            handleFileUpload(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    this.uploadedFile = file;
+                    this.filePreview.style.display = 'block';
+                    this.filePreview.innerHTML = `
+                        <strong>📁 File uploaded:</strong> ${file.name} (${(file.size / 1024).toFixed(1)} KB)
+                        <button onclick="krishiMitra.removeFile()" style="float: right; background: none; border: none; color: #f44336; cursor: pointer;">✕</button>
+                    `;
+                }
+            }
+
+            removeFile() {
+                this.uploadedFile = null;
+                this.fileInput.value = '';
+                this.filePreview.style.display = 'none';
+            }
+
+            sendMessage() {
+                const message = this.messageInput.value.trim();
+                if (!message && !this.uploadedFile) return;
+
+                this.hideWelcomeMessage();
+                
+                if (message) {
+                    this.addMessage('user', message);
+                }
+                
+                if (this.uploadedFile) {
+                    this.addMessage('user', `📁 Uploaded: ${this.uploadedFile.name}`);
+                }
+                
+                this.messageInput.value = '';
+                this.messageInput.style.height = 'auto';
+                this.removeFile();
+                
+                this.showTypingIndicator();
+                
+                setTimeout(() => {
+                    this.hideTypingIndicator();
+                    this.generateResponse(message);
+                }, 1500 + Math.random() * 1000);
+            }
+
+            showTypingIndicator() {
+                this.typingIndicator.style.display = 'block';
+                this.scrollToBottom();
+            }
+
+            hideTypingIndicator() {
+                this.typingIndicator.style.display = 'none';
+            }
+
+            hideWelcomeMessage() {
+                this.welcomeMessage.style.display = 'none';
+            }
+
+            addMessage(sender, content) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}`;
+                
+                const avatar = document.createElement('div');
+                avatar.className = `avatar ${sender}-avatar`;
+                avatar.innerHTML = sender === 'user' ? '👨‍🌾' : '🌾';
+                
+                const messageContent = document.createElement('div');
+                messageContent.className = 'message-content';
+                messageContent.innerHTML = content;
+                
+                if (sender === 'user') {
+                    messageDiv.appendChild(messageContent);
+                    messageDiv.appendChild(avatar);
+                } else {
+                    messageDiv.appendChild(avatar);
+                    messageDiv.appendChild(messageContent);
+                }
+                
+                this.chatArea.appendChild(messageDiv);
+                this.scrollToBottom();
+            }
+
+            generateResponse(message) {
+                const responses = this.responses[this.currentLanguage];
+                let response = responses.error;
+                
+                const lowerMessage = message.toLowerCase();
+                
+                if (!message && this.uploadedFile) {
+                    response = responses.fileUploaded;
+                } else if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('नमस्ते')) {
+                    response = responses.greeting;
+                } else if (lowerMessage.includes('crop') || lowerMessage.includes('seed') || lowerMessage.includes('फसल')) {
+                    response = responses.cropSelection;
+                } else if (lowerMessage.includes('pest') || lowerMessage.includes('insect') || lowerMessage.includes('कीट')) {
+                    response = responses.pestControl;
+                } else if (lowerMessage.includes('soil') || lowerMessage.includes('test') || lowerMessage.includes('मिट्टी')) {
+                    response = responses.soilHealth;
+                } else if (lowerMessage.includes('water') || lowerMessage.includes('irrigation') || lowerMessage.includes('सिंचाई')) {
+                    response = responses.irrigation;
+                } else if (lowerMessage.includes('scheme') || lowerMessage.includes('government') || lowerMessage.includes('योजना')) {
+                    response = responses.schemes;
+                } else if (lowerMessage.includes('weather') || lowerMessage.includes('climate') || lowerMessage.includes('मौसम')) {
+                    response = responses.weather || responses.error;
+                } else if (lowerMessage.includes('organic') || lowerMessage.includes('natural') || lowerMessage.includes('जैविक')) {
+                    response = responses.organic || responses.error;
+                } else if (lowerMessage.includes('market') || lowerMessage.includes('sell') || lowerMessage.includes('बाजार')) {
+                    response = responses.marketing || responses.error;
+                }
+                
+                this.addMessage('bot', response);
+            }
+
+            scrollToBottom() {
+                setTimeout(() => {
+                    this.chatArea.scrollTop = this.chatArea.scrollHeight;
+                }, 100);
+            }
+        }
+
+        // Initialize the chatbot
+        const krishiMitra = new KrishiMitra();
+
+        // Global function for suggestion buttons
+        function sendSuggestion(text) {
+            krishiMitra.messageInput.value = text;
+            krishiMitra.sendMessage();
+        }
+
+        // Add some advanced features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add welcome animation
+            setTimeout(() => {
+                const welcomeMsg = document.getElementById('welcomeMessage');
+                if (welcomeMsg) {
+                    welcomeMsg.style.opacity = '0';
+                    welcomeMsg.style.transform = 'translateY(20px)';
+                    welcomeMsg.style.transition = 'all 0.5s ease';
+                    
+                    setTimeout(() => {
+                        welcomeMsg.style.opacity = '1';
+                        welcomeMsg.style.transform = 'translateY(0)';
+                    }, 200);
+                }
+            }, 500);
+
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // Ctrl/Cmd + / to focus on input
+                if ((e.ctrlKey || e.metaKey) && e.key === '/') {
+                    e.preventDefault();
+                    krishiMitra.messageInput.focus();
+                }
+                
+                // Escape to clear input
+                if (e.key === 'Escape') {
+                    krishiMitra.messageInput.value = '';
+                    krishiMitra.removeFile();
+                }
+            });
+
+            // Add drag and drop for files
+            const chatContainer = document.querySelector('.chatbot-container');
+            
+            chatContainer.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                chatContainer.style.backgroundColor = 'rgba(76, 175, 80, 0.1)';
+            });
+            
+            chatContainer.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                chatContainer.style.backgroundColor = '';
+            });
+            
+            chatContainer.addEventListener('drop', function(e) {
+                e.preventDefault();
+                chatContainer.style.backgroundColor = '';
+                
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    const file = files[0];
+                    if (file.type.startsWith('image/') || 
+                        file.type === 'application/pdf' || 
+                        file.type.includes('document') ||
+                        file.type === 'text/plain') {
+                        
+                        // Simulate file input
+                        krishiMitra.uploadedFile = file;
+                        krishiMitra.filePreview.style.display = 'block';
+                        krishiMitra.filePreview.innerHTML = `
+                            <strong>📁 File dropped:</strong> ${file.name} (${(file.size / 1024).toFixed(1)} KB)
+                            <button onclick="krishiMitra.removeFile()" style="float: right; background: none; border: none; color: #f44336; cursor: pointer;">✕</button>
+                        `;
+                    }
+                }
+            });
+        });
+
+        // Enhanced responses with more detailed information
+        krishiMitra.responses.en = {
+            ...krishiMitra.responses.en,
+            organic: "Organic farming focuses on natural methods: 1) Use compost and vermicompost instead of chemical fertilizers, 2) Practice crop rotation and intercropping, 3) Use neem, garlic, and other natural pest deterrents, 4) Maintain soil health with green manures, 5) Avoid synthetic pesticides and GMOs. Certification takes 3 years. Would you like specific guidance for your crop?",
+            marketing: "Smart marketing strategies: 1) Research local market prices daily, 2) Consider direct sales through farmer's markets, 3) Join Farmer Producer Organizations (FPOs), 4) Use online platforms like eNAM, 5) Add value through processing (dried, pickled, packed products), 6) Build relationships with local buyers, 7) Consider contract farming. What crops are you looking to market?",
+            weather: "Weather monitoring is crucial for farming success: 1) Use IMD weather forecasts, 2) Install rain gauges and soil moisture sensors, 3) Follow seasonal weather patterns, 4) Plan sowing based on monsoon predictions, 5) Use weather-based crop advisories, 6) Consider crop insurance for weather risks. Many mobile apps provide localized agricultural weather updates.",
+            fertilizer: "Fertilizer management tips: 1) Always do soil testing first, 2) Use the 4R principle - Right source, Right rate, Right time, Right place, 3) Combine organic and inorganic fertilizers, 4) Apply nitrogen in splits, 5) Use micronutrients based on soil test, 6) Consider slow-release fertilizers. What crops are you fertilizing?",
+            water: "Water conservation techniques: 1) Drip irrigation saves 30-50% water, 2) Mulching reduces evaporation, 3) Rainwater harvesting, 4) Use of farm ponds, 5) Crop selection based on water availability, 6) Scheduling irrigation based on soil moisture. What's your current water source and availability?"
+        };
+
+        // Add Hindi responses for new topics
+        krishiMitra.responses.hi = {
+            ...krishiMitra.responses.hi,
+            organic: "जैविक खेती प्राकृतिक तरीकों पर आधारित है: 1) रासायनिक उर्वरक के बजाय कंपोस्ट का उपयोग, 2) फसल चक्र अपनाएं, 3) नीम, लहसुन जैसे प्राकृतिक कीट प्रतिरोधी का उपयोग, 4) हरी खाद से मिट्टी की सेहत बनाए रखें। प्रमाणन में 3 साल लगते हैं।",
+            marketing: "बेहतर विपणन रणनीति: 1) स्थानीय बाजार भावों की दैनिक जानकारी रखें, 2) सीधी बिक्री पर विचार करें, 3) किसान उत्पादक संगठन से जुड़ें, 4) ऑनलाइन प्लेटफॉर्म का उपयोग करें, 5) मूल्य संवर्धन के लिए प्रसंस्करण करें।",
+            weather: "मौसम की निगरानी खेती की सफलता के लिए महत्वपूर्ण है: 1) मौसम विभाग की भविष्यवाणी देखें, 2) बारिश नापने के यंत्र लगाएं, 3) मौसमी पैटर्न को समझें, 4) मानसून के आधार पर बुवाई की योजना बनाएं।"
+        };
+    </script>
+</body>
+</html>
