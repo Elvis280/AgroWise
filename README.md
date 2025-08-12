@@ -25,8 +25,5 @@
   <li><strong>Home One __ Agrion __ Agrion HTML 5 Template_files:</strong> Stylesheets for UI and layout and JavaScript logic and interactivity scripts.</li>
 </ul>
 
-<h2>License</h2>
-<p>This project is licensed under the MIT License – you are free to use, modify, and distribute it with proper attribution.</p>
-
 <h2>Contact</h2>
 <p>For inquiries, please contact the AgroWise development team at <a href="mailto:support@agrowise.com">support@agrowise.com</a>.</p>
