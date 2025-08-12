@@ -21,9 +21,8 @@
 <h2>Project Structure</h2>
 <ul>
   <li><strong>index.html:</strong> Main entry point of the application.</li>
-  <li><strong>assets/:</strong> Contains images, stylesheets, and JavaScript files.</li>
-  <li><strong>css/:</strong> Stylesheets for UI and layout.</li>
-  <li><strong>js/:</strong> JavaScript logic and interactivity scripts.</li>
+  <li><strong>hello_files</strong> Contains images, stylesheets, and JavaScript files.</li>
+  <li><strong>Home One __ Agrion __ Agrion HTML 5 Template_files</strong> Stylesheets for UI and layout and JavaScript logic and interactivity scripts.</li>
 </ul>
 
 <h2>License</h2>
