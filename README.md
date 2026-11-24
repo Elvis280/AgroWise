@@ -1,29 +1,11 @@
-<h1>AgroWise</h1>
+# AgroWise
 
-<p>AgroWise is a modern, AI-driven agricultural advisory platform that empowers farmers, agribusinesses, and agricultural organizations with data-driven insights and personalized recommendations. The platform leverages advanced analytics and machine learning to optimize crop planning, pest management, irrigation scheduling, and yield forecasting. Its intuitive interface ensures ease of use while providing actionable, localized guidance to improve productivity and profitability.</p>
+Browser prototype for exploring crop recommendations and chatting with an agricultural assistant. The home page uses an adapted Agrion layout.
 
-<h2>Features</h2>
-<ul>
-  <li><strong>Crop Recommendations:</strong> Get tailored crop suggestions based on soil type, climate, and market trends.</li>
-  <li><strong>Pest & Disease Management:</strong> AI-powered detection and prevention strategies.</li>
-  <li><strong>Irrigation Planning:</strong> Optimize water usage with smart scheduling tools.</li>
-  <li><strong>Yield Forecasting:</strong> Predict production outcomes for better planning.</li>
-  <li><strong>Localized Insights:</strong> Recommendations customized for specific regions.</li>
-</ul>
+## Explore the prototype
 
-<h2>Installation & Usage</h2>
-<ol>
-  <li>Clone or download the repository to your local machine.</li>
-  <li>Pull all the latest files from the repository.</li>
-  <li>Open <code>index.html</code> in your preferred web browser to run AgroWise.</li>
-</ol>
+Open `index.html` to view the home page. Open `crop-rec-form.html` to try the crop input form or `chatbot.html` to inspect the chat interface.
 
-<h2>Project Structure</h2>
-<ul>
-  <li><strong>index.html:</strong> Main entry point of the application.</li>
-  <li><strong>hello_files</strong> Contains images, stylesheets, and JavaScript files.</li>
-  <li><strong>Home One __ Agrion __ Agrion HTML 5 Template_files:</strong> Stylesheets for UI and layout and JavaScript logic and interactivity scripts.</li>
-</ul>
+## Integration status
 
-<h2>Contact</h2>
-<p>For inquiries, please contact the AgroWise development team at <a href="mailto:support@agrowise.com">support@agrowise.com</a>.</p>
+The crop form validates inputs and handles success and error responses. Recommendations and chat replies depend on external workflows. To reproduce those features, configure working endpoints in the corresponding HTML scripts.
